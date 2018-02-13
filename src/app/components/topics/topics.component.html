@@ -1,0 +1,15 @@
+<div class="topics-wrap">
+  <app-header>
+    <span>新建主题</span>
+  </app-header>
+  <div class="main">
+    <div class="login-box">
+      <input class="text" type="text" placeholder="请输入话题，不少于十个字符" [(ngModel)]="title">
+      <div class="line"></div>
+      <div class="tip">请输入话题，不少于十个字符</div>
+      <div class="textarea" contenteditable="true" #textarea>请输入内容，不少于十个字符</div>
+      <div class="tip-err" *ngIf="msg">{{msg}}</div>
+      <a class="box-login" (click)="onRelease()">发布</a>
+    </div>
+  </div>
+</div>

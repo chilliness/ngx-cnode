@@ -1,0 +1,51 @@
+@import "../../common/scss/mixin.scss";
+.user-wrap {
+  .user-main {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    right: 0;
+    bottom: 0;
+  }
+  .user-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    font-size: 14px;
+    line-height: 1.5;
+    .avatar {
+      flex: 0 0 60px;
+      width: 60px;
+      height: 60px;
+    }
+    .author {
+      padding-top: 5px;
+    }
+  }
+  .user-list {
+    margin: 40px;
+    box-shadow: 0 0 5px $bdcc;
+    .item-item {
+      display: flex;
+      align-items: center;
+      height: 50px;
+      overflow: hidden;
+      padding: 0 10px;
+    }
+    .item {
+      height: 60px;
+      border-top: 1px dashed $bdcc;
+    }
+    .title {
+      flex: 1;
+      padding-left: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      @include dot;
+    }
+  }
+  .placeholder {
+    height: 1px;
+  }
+}

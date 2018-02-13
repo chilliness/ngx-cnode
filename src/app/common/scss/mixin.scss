@@ -1,0 +1,26 @@
+// 用于配置全局变量和mixin，默认加载到全局，因此.vue文件中开箱即用(不需导入)
+
+$fsff: #fff;
+$fs31: #313131;
+$fs0b: #0b4366;
+$fscc: #cc2423;
+$fs04: #0462dc;
+$bge3: #e34949;
+$bg22: #22a1d4;
+$bg04: #0462dc;
+$bgfc: #fc0284;
+$bgf6: #f6f8fa;
+$bgff: #fff;
+$bdcc: #ccc;
+$bd04: #0462dc;
+$bd68: #68cbf2;
+$bde3: #e34949;
+$bdfb: #fbac35;
+$bd99: #999;
+$bs99: #999;
+
+@mixin dot {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

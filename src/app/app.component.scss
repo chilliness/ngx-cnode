@@ -1,0 +1,76 @@
+@import './common/scss/mixin';
+.markdown-text {
+  font-size: 14px;
+  a {
+    color: $fs04;
+  }
+  p,
+  ul,
+  ol {
+    text-align: justify;
+    line-height: 1.5;
+    text-indent: 2em;
+    padding: 1em 1em 0.5em;
+    word-break: break-all;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    line-height: 2;
+    margin: 0.5em 1em 0.5em 0;
+    padding-left: 0.5em;
+    font-size: 16px;
+    font-weight: bold;
+    border-left: 5px solid $bd04;
+  }
+  h2 {
+    border-left-color: $bd68;
+  }
+  h3 {
+    font-size: 14px;
+    border-left-color: $bde3;
+  }
+  h4 {
+    font-size: 14px;
+    border-left-color: $bdfb;
+  }
+  h5 {
+    font-size: 12px;
+    border-left-color: $bd99;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  pre {
+    margin: 0.5em 1em;
+    padding: 16px;
+    font-size: 14px;
+    border-radius: 3px;
+    background: $bgf6;
+    code {
+      line-height: 1.5;
+    }
+  }
+}
+
+.reply {
+  p {
+    text-indent: 0;
+    padding: 0.5em 0 0;
+  }
+  blockquote {
+    margin: 0 10px;
+  }
+}
+
+.avatar {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px $bs99;
+}

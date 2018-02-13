@@ -1,0 +1,21 @@
+<main class="scroll-wrap" #scroller>
+  <section>
+    <ng-content></ng-content>
+    <div class="load-box" *ngIf="pullUpLoad">
+      <ng-container *ngIf="isLoading.loadFlag; else elseTemplate">
+        <app-loading class="item load-doing"></app-loading>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <div class="item load-tip">{{onLoadText()}}</div>
+      </ng-template>
+    </div>
+  </section>
+  <div class="refresh-box" *ngIf="pullDownRefresh" #refresher>
+    <ng-container *ngIf="isLoading.refreshFlag; else elseTemplate">
+      <app-loading class="item load-doing"></app-loading>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <div class="item load-tip">{{pullDownRefresh && pullDownRefresh.txt}}</div>
+    </ng-template>
+  </div>
+</main>

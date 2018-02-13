@@ -1,0 +1,85 @@
+<div class="topic-wrap">
+  <app-header>
+    <span>详情</span>
+  </app-header>
+  <app-scroll class="topic-main" (scroll)="onNowPos($event)" *ngIf="content.create_at" #scroll>
+    <aside class="author-bar">
+      <div class="avatar-box">
+        <img class="avatar" width="40" height="40" [src]="content.author && content.author.avatar_url" [alt]="content.author && content.author.loginname"
+          (click)="onLinkUser(content)">
+        <div class="collect-bar" *ngIf="logined == 1" (click)="onToggleCollection(content.is_collect)">
+          <i class="icon-collect icon-rss2" [ngClass]="{on: content.is_collect}"></i>
+          <span class="author">{{content.is_collect ? '已收藏' : '未收藏'}}</span>
+        </div>
+      </div>
+      <div class="time-box">
+        <time class="time">{{'发表于' + onFormatTime(content.create_at)}}</time>
+        <dl class="interactive">
+          <dt class="reply">
+            <i class="icon-bubbles"></i>
+            <span>{{content.reply_count}}</span>
+          </dt>
+          <dd class="visit">
+            <i class="icon-eye"></i>
+            <span>{{content.visit_count}}</span>
+          </dd>
+        </dl>
+      </div>
+    </aside>
+    <h1 class="topic-title">{{content.title}}</h1>
+    <article class="article" [innerHTML]="content.content"></article>
+    <aside class="comments-box">
+      <h3 class="caption">{{'共有条' + content.reply_count + '留言'}}</h3>
+      <ol class="list" *ngIf="content.reply_count">
+        <li class="item" *ngFor="let item of content.replies; let index = index">
+          <div class="item-item">
+            <div class="avatar-box" (click)="onLinkUser(item)">
+              <img width="40" height="40" class="avatar" [src]="item.author.avatar_url" alt="">
+              <span class="floor">{{(index + 1) + '楼'}}</span>
+            </div>
+            <div class="reply-box">
+              <dl class="user">
+                <span class="name">{{item.author.loginname == content.author.loginname ? '楼主' : item.author.loginname}}</span>
+                <time class="time">{{onFormatTime(content.create_at)}}</time>
+              </dl>
+              <div class="reply" [innerHTML]="item.content"></div>
+              <div class="love-box">
+                <span class="reply-text" (click)="onCheckLogin(item)">回复</span>
+                <span class="love" (click)="onToggleLove(item)">
+                  <i class="icon-vimeo2" [ngClass]="{'icon-love': item.is_uped}"></i>
+                  <span class="num">{{item.ups.length}}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="login-box" *ngIf="item.logined && logined != 1" [@slide]>
+            <a class="login" (click)="onLogin()">点击登录</a>
+          </div>
+          <div class="reply-bar" *ngIf="item.logined && logined == 1" [@slide]>
+            <div class="reply-form">
+              <input class="text" type="text" [value]="'@' + item.author?.loginname +' '">
+              <div class="line"></div>
+              <a class="btn-reply" (click)="onReply(item, $event)">回复</a>
+            </div>
+          </div>
+          <div class="border"></div>
+        </li>
+      </ol>
+      <ng-container *ngIf="logined != 1; else elseTemplate">
+        <div class="login-box">
+          <a class="login" (click)="onLogin()">点击登录</a>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <div class="reply-bar">
+          <div class="reply-form">
+            <input class="text" type="text" placeholder="请输入回复内容">
+            <div class="line"></div>
+            <a class="btn-reply" (click)="onReply(content, $event)">回复</a>
+          </div>
+        </div>
+      </ng-template>
+    </aside>
+  </app-scroll>
+  <app-top [nowPos]="nowPos" (top)="onResetTop()"></app-top>
+</div>
