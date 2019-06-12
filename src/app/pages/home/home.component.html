@@ -1,0 +1,44 @@
+<div class="home-wrap">
+  <app-header [isHome]="true" (toggle)="handleToggleLoginBar(true)">NodeJS论坛</app-header>
+  <ul class="nav-list">
+    <li class="item-box" *ngFor="let item of menus; index as index" (click)="handleChangeTab(item.alias, index)">{{item.text}}</li>
+    <li class="line" [ngStyle]="{left: form.active.index * 20 + '%'}"></li>
+  </ul>
+  <app-scroll [isHome]="true" [pullDownRefresh]="pullDownRefresh" [pullUpLoad]="pullUpLoad" [data]="form.list" (refresh)="handleFetchData(true)" (loaded)="handleFetchData()" #scroll>
+    <ul class="list-box">
+      <li class="item-box" *ngFor="let item of form.list; index as index" (click)="$router.navigate(['/topic', item.id])">
+        <div class="avatar-box">
+          <img class="avatar" [src]="item.author.avatar_url" alt="头像">
+        </div>
+        <div class="content">
+          <div class="title">{{item.title}}</div>
+          <div class="other">
+            <div class="num">{{item.reply_count + '/' + item.visit_count}}</div>
+            <div class="time">{{handleFormatTime(item.last_reply_at)}}</div>
+          </div>
+        </div>
+        <i class="tag" *ngIf="item.top; else elseTemplate">置顶</i>
+        <ng-template #elseTemplate>
+          <i class="tag good" *ngIf="item.good">精华</i>
+        </ng-template>
+      </li>
+    </ul>
+  </app-scroll>
+  <div class="login-bar" [ngClass]="{active: loginBarFlag}">
+    <div class="login-box">
+      <div class="user-bar">
+        <div class="avatar-box" (click)="handleLogin()">
+          <img class="avatar" [src]="user.avatar_url" alt="头像">
+        </div>
+        <div class="text">{{user.loginname || '点击头像登录'}}</div>
+      </div>
+      <ul class="other" *ngIf="user.loginname">
+        <li class="item" (click)="handleLink('user')">用户详情</li>
+        <li class="item" (click)="handleLink('collect')">用户收藏</li>
+        <li class="item" (click)="handleLogout()">退出登录</li>
+      </ul>
+    </div>
+    <div class="bg-box" (click)="handleToggleLoginBar(false)"></div>
+  </div>
+  <app-loading [isHome]="true" *ngIf="isLoading"></app-loading>
+</div>

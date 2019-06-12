@@ -1,0 +1,12 @@
+@import '../../common/scss/mixin.scss';
+
+.notFound-wrap {
+  @include fcol(flex-start, stretch);
+  width: 100vw;
+  height: 100vh;
+  .box {
+    flex: 1;
+    background: url(./img/bg.jpg) no-repeat center;
+    background-size: contain;
+  }
+}

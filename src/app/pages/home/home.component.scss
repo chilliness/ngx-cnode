@@ -1,0 +1,136 @@
+@import '../../common/scss/mixin.scss';
+
+.home-wrap {
+  height: 100vh;
+  font-size: 14px;
+  .nav-list {
+    position: relative;
+    @include frow(space-between, stretch);
+    height: 44px;
+    margin-top: 1px;
+    color: $fswhite;
+    background: $bg00a;
+    .item-box {
+      @include frow();
+      flex: 1;
+    }
+    .line {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 20%;
+      height: 5px;
+      transition: 0.2s;
+      background: $bge43;
+    }
+  }
+  .list-box {
+    .item-box {
+      position: relative;
+      @include frow(space-between);
+      padding: 15px 10px;
+      &:nth-of-type(n + 2) {
+        border-top: 1px dashed $bdccc;
+      }
+      &:last-child {
+        border-bottom: 1px dashed $bdccc;
+      }
+      .avatar-box {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+        background: url(./img/avatar.jpg) no-repeat center;
+        background-size: contain;
+        .avatar {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .content {
+        flex: 1;
+        margin-left: 10px;
+        overflow: hidden;
+        .title {
+          padding-right: 1em;
+          font-size: 16px;
+          font-weight: bold;
+          @include dot();
+        }
+        .other {
+          @include frow(space-between);
+          margin-top: 10px;
+          font-size: 12px;
+        }
+      }
+      .tag {
+        position: absolute;
+        right: 0;
+        top: -1px;
+        width: 1em;
+        padding: 3px;
+        font-size: 12px;
+        line-height: 1.2;
+        color: $fswhite;
+        background: $bge43;
+        &.good {
+          background: $bg00a;
+        }
+      }
+    }
+  }
+  .login-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+    @include frow(space-between, stretch);
+    transform: translateX(-100%);
+    &.active {
+      transform: translateX(0);
+      transition: 0.3s ease-in;
+    }
+    .login-box {
+      $width: 140px;
+      width: $width;
+      color: $fswhite;
+      background: $bgwhite;
+      .user-bar {
+        @include fcol();
+        width: 100%;
+        height: $width;
+        background: $bg00a;
+        .avatar-box {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          overflow: hidden;
+          box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+          .avatar {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .text {
+          margin-top: 10px;
+        }
+      }
+      .other {
+        .item {
+          @include frow();
+          height: 52px;
+          color: $fs005;
+          border-bottom: 1px dashed $bdccc;
+        }
+      }
+    }
+    .bg-box {
+      flex: 1;
+      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.5);
+    }
+  }
+}

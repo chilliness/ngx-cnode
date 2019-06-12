@@ -1,0 +1,21 @@
+@import '../../common/scss/mixin.scss';
+
+.header-wrap {
+  position: relative;
+  @include frow();
+  height: 50px;
+  font-size: 16px;
+  color: $fswhite;
+  background: $bg00a;
+  .iconfont {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    font-size: 24px;
+    transform: translate3d(0, -50%, 0);
+  }
+  .text {
+    max-width: 70%;
+    @include dot();
+  }
+}

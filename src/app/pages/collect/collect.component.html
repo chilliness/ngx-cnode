@@ -1,0 +1,32 @@
+<div class="collect-wrap">
+  <app-header>收藏</app-header>
+  <app-scroll [data]="list" #scroll>
+    <div class="content">
+      <div class="user-bar">
+        <div class="avatar-box">
+          <img class="avatar" [src]="user.avatar_url" alt="头像">
+        </div>
+        <div class="text name">{{user.loginname}}</div>
+        <div class="text num">{{'收藏了' + list.length + '话题'}}</div>
+      </div>
+      <div class="topic-box">
+        <h2 class="caption">收藏的话题</h2>
+        <ul class="list-box" *ngIf="list.length; else elseTemplate">
+          <li class="item-box" *ngFor="let item of list; index as index" (click)="$router.navigate(['/topic', item.id])">
+            <div class="avatar-box">
+              <img class="avatar" [src]="item.author.avatar_url" alt="头像">
+            </div>
+            <div class="desc-box">
+              <h3 class="title">{{item.title}}</h3>
+              <div class="time">{{item.author.loginname + '发表于' + handleFormatTime(item.last_reply_at)}}</div>
+            </div>
+          </li>
+        </ul>
+        <ng-template #elseTemplate>
+          <div class="nothing-box">这个家伙很懒，什么也没留下</div>
+        </ng-template>
+      </div>
+    </div>
+  </app-scroll>
+  <app-loading *ngIf="isLoading"></app-loading>
+</div>

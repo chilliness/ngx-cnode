@@ -8,7 +8,7 @@
   <meta name="format-detection" content="telephone=no, email=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <base href="/">
   <title>Node.js专业中文社区</title>
@@ -17,9 +17,11 @@
 <body>
   <app-root></app-root>
   <script>
-    document.addEventListener('touchmove', (ev) => {
-      ev.preventDefault();
-    });
+    document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+    // 此代码用于解决苹果手机bug
+    if (navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+      window.history.pushState(null, null, null);
+    }
   </script>
 </body>
 

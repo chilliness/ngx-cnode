@@ -1,50 +1,37 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { RouteguardService } from './service/routeguard.service';
+import { NgModule, Injectable } from '@angular/core';
+import { Routes, RouterModule, CanActivate, Router } from '@angular/router';
+import { HomeComponent } from './pages/home/home.component';
+import { TopicComponent } from './pages/topic/topic.component';
+import { UserComponent } from './pages/user/user.component';
+import { CollectComponent } from './pages/collect/collect.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import session from './utils/storage';
 
-import { HomeComponent } from './components/home/home.component';
-import { TopicComponent } from './components/topic/topic.component';
-import { UserComponent } from './components/user/user.component';
-import { LoginComponent } from './components/login/login.component';
-import { MessageComponent } from './components/message/message.component';
-import { TopicsComponent } from './components/topics/topics.component';
+// 路由拦截
+@Injectable()
+export class RouteAuth implements CanActivate {
+  constructor(private $router: Router) { }
+
+  canActivate() {
+    // 此处做权限拦截
+    if (!session.get('isLogin', 0)) {
+      return this.$router.navigate(['/home']);
+    }
+    return true;
+  }
+}
 
 const routes: Routes = [
-  {
-    path: 'home',
-    component: HomeComponent
-  },
-  {
-    path: 'topic/:id',
-    component: TopicComponent
-  },
-  {
-    path: 'user/:loginname',
-    component: UserComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'message',
-    component: MessageComponent,
-    canActivate: [RouteguardService]
-  },
-  {
-    path: 'topics',
-    component: TopicsComponent,
-    canActivate: [RouteguardService]
-  },
-  {
-    path: '**',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent, data: { keep: true } },
+  { path: 'topic/:id', component: TopicComponent },
+  { path: 'user/:name', component: UserComponent },
+  { path: 'collect/:name', component: CollectComponent, canActivate: [RouteAuth] },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

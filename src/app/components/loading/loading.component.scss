@@ -1,0 +1,13 @@
+@import '../../common/scss/mixin.scss';
+
+.loading-wrap {
+  position: fixed;
+  left: 0;
+  top: 50px;
+  right: 0;
+  bottom: 0;
+  background: $bg00a url(./img/loading.gif) no-repeat center;
+  &.top {
+    top: 95px;
+  }
+}

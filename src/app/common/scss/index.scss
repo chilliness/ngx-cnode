@@ -1,2 +1,69 @@
-@import "./reset";
-@import "./icon";
+@import '../fonts/iconfont.css';
+@import './reset.scss';
+@import './mixin.scss';
+
+.content-box {
+  .markdown-text {
+    font-size: 14px;
+    a {
+      color: $fs005;
+    }
+    p,
+    ul,
+    ol {
+      text-align: justify;
+      line-height: 1.5;
+      text-indent: 2em;
+      padding: 1em 1em 0.5em;
+      word-break: break-all;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      line-height: 2;
+      margin: 0.5em 1em 0.5em 0;
+      padding-left: 0.5em;
+      font-size: 16px;
+      font-weight: bold;
+      border-left: 5px solid $bde43;
+    }
+    img {
+      display: block;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    pre {
+      margin: 0.5em 1em;
+      padding: 16px;
+      font-size: 14px;
+      border-radius: 3px;
+      background: $bgccc;
+      code {
+        line-height: 1.5;
+      }
+    }
+  }
+}
+.reply-box {
+  .markdown-text {
+    font-size: 14px;
+    a {
+      color: $fs005;
+    }
+    p {
+      text-align: justify;
+      line-height: 1.5;
+      word-break: break-all;
+    }
+    img {
+      display: block;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+  }
+  blockquote {
+    margin: 0 10px;
+  }
+}

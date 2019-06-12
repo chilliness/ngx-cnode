@@ -1,0 +1,56 @@
+<div class="topic-wrap">
+  <app-header>{{title}}</app-header>
+  <app-scroll [observeDOM]="true" [data]="[article]" (scrolled)="handleUpdateTitle()">
+    <div class="content-box">
+      <h2 class="title">{{article.title}}</h2>
+      <div class="user-bar" *ngIf="article.author">
+        <div class="user-box">
+          <div class="avatar-box">
+            <img class="avatar" [src]="article.author.avatar_url" alt="头像">
+          </div>
+          <dl class="other">
+            <dt class="name">{{article.author.loginname}}</dt>
+            <dt class="time">{{'发表于' + handleFormatTime(article.create_at)}}</dt>
+          </dl>
+        </div>
+        <div class="view-box">
+          <i class="iconfont icon-view"></i>
+          <span class="text">{{article.visit_count + '次'}}</span>
+        </div>
+        <img class="tag" [src]="top" alt="置顶" *ngIf="article.top; else elseTemplate">
+        <ng-template #elseTemplate>
+          <img class="tag" [src]="good" alt="精华" *ngIf="article.good">
+        </ng-template>
+      </div>
+      <div [innerHTML]="article.content"></div>
+    </div>
+    <div class="reply-box" *ngIf="article.replies">
+      <h3 class="title" #message>{{'共有' + article.replies.length +'条留言'}}</h3>
+      <ul class="list-box" *ngIf="article.replies.length; else elseTemplate">
+        <li class="item-box" *ngFor="let item of article.replies; index as index">
+          <div class="user-box" (click)="$router.navigate(['/user', item.author.loginname])">
+            <div class="avatar-box">
+              <img class="avatar" [src]="item.author.avatar_url" alt="头像">
+              <span class="tag" *ngIf="item.author.loginname === article.author.loginname">楼主</span>
+            </div>
+            <div class="floor">{{(index + 1) + '楼'}}</div>
+          </div>
+          <div class="info-box">
+            <div class="other">
+              <div class="time">{{item.author.loginname + '发表于' + handleFormatTime(item.create_at)}}</div>
+              <div class="feedback">
+                <i class="iconfont icon-vote"></i>
+                <span class="text">{{item.ups.length}}</span>
+              </div>
+            </div>
+            <div [innerHTML]="item.content"></div>
+          </div>
+        </li>
+      </ul>
+      <ng-template #elseTemplate>
+        <div class="nothing-box">暂无评论，快去抢沙发</div>
+      </ng-template>
+    </div>
+  </app-scroll>
+  <app-loading *ngIf="isLoading"></app-loading>
+</div>

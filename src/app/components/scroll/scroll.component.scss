@@ -1,0 +1,151 @@
+@import '../../common/scss/mixin.scss';
+
+.scroll-wrap {
+  position: fixed;
+  left: 0;
+  top: 50px;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  &.top {
+    top: 95px;
+  }
+  .load-box {
+    height: 80px;
+    font-size: 14px;
+    .anim-box {
+      @include frow();
+      height: 100%;
+      .item {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: $bge43;
+      }
+      .item:first-child {
+        animation: anim-drop1 1.5s ease-in infinite;
+      }
+      .item:last-child {
+        animation: anim-drop2 1.5s ease-in infinite;
+      }
+    }
+    .text-box {
+      @include frow();
+      height: 100%;
+      padding: 0 40px;
+      .line {
+        flex: 1;
+        border-top: 1px solid $bdccc;
+      }
+      .text {
+        padding: 0 10px;
+      }
+    }
+  }
+  .refresh-box {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -100%;
+    height: 60px;
+    z-index: 9;
+    font-size: 14px;
+    .anim-box {
+      @include frow();
+      height: 100%;
+      .item-box {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        .item {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          background: $bge43;
+        }
+        .item:nth-of-type(1) {
+          left: 0;
+          top: 0;
+          animation: anim-wave 1.5s infinite;
+        }
+        .item:nth-of-type(2) {
+          left: 10px;
+          top: 0;
+          animation: anim-wave 1.5s 0.25s infinite;
+        }
+        .item:nth-of-type(3) {
+          left: 20px;
+          top: 0;
+          animation: anim-wave 1.5s 0.5s infinite;
+        }
+        .item:nth-of-type(4) {
+          left: 0;
+          top: 10px;
+          animation: anim-wave 1.5s 0.25s infinite;
+        }
+        .item:nth-of-type(5) {
+          left: 10px;
+          top: 10px;
+          animation: anim-wave 1.5s 0.5s infinite;
+        }
+        .item:nth-of-type(6) {
+          left: 20px;
+          top: 10px;
+          animation: anim-wave 1.5s 0.75s infinite;
+        }
+        .item:nth-of-type(7) {
+          left: 0;
+          top: 20px;
+          animation: anim-wave 1.5s 0.5s infinite;
+        }
+        .item:nth-of-type(8) {
+          left: 10px;
+          top: 20px;
+          animation: anim-wave 1.5s 0.75s infinite;
+        }
+        .item:nth-of-type(9) {
+          left: 20px;
+          top: 20px;
+          animation: anim-wave 1.5s 1s infinite;
+        }
+      }
+    }
+    .text-box {
+      @include frow();
+      height: 100%;
+    }
+  }
+}
+
+@keyframes anim-drop1 {
+  0%,
+  100% {
+    transform: translate3d(-25px, -10px, 0);
+  }
+  25%,
+  75% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes anim-drop2 {
+  0%,
+  25%,
+  75%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(25px, -10px, 0);
+  }
+}
+
+@keyframes anim-wave {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+}

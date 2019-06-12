@@ -1,0 +1,6 @@
+<div class="header-wrap">
+  <i class="iconfont" [ngClass]="[isHome ? 'icon-menu' : 'icon-back']" (click)="handleClick()"></i>
+  <div class="text">
+    <ng-content></ng-content>
+  </div>
+</div>

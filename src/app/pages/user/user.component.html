@@ -1,0 +1,50 @@
+<div class="user-wrap">
+  <app-header>用户</app-header>
+  <app-scroll [data]="[user]" #scroll>
+    <div class="content">
+      <div class="user-bar">
+        <div class="avatar-box">
+          <img class="avatar" [src]="user.avatar_url" alt="头像" *ngIf="user.avatar_url">
+        </div>
+        <div class="text name">{{user.loginname}}</div>
+        <div class="text score">{{'积分：' + user.score}}</div>
+        <div class="text register">{{'注册于' + handleFormatTime(user.create_at)}}</div>
+      </div>
+      <div class="topic-box">
+        <h2 class="caption">近期创建的话题</h2>
+        <ul class="list-box" *ngIf="topics.length; else elseTemplate">
+          <li class="item-box" *ngFor="let item of topics; index as index" (click)="$router.navigate(['/topic', item.id])">
+            <div class="avatar-box">
+              <img class="avatar" [src]="item.author.avatar_url" alt="头像">
+            </div>
+            <div class="desc-box">
+              <h3 class="title">{{item.title}}</h3>
+              <div class="time">{{item.author.loginname + '发表于' + handleFormatTime(item.last_reply_at)}}</div>
+            </div>
+          </li>
+        </ul>
+        <ng-template #elseTemplate>
+          <div class="nothing-box">这个家伙很懒，什么也没留下</div>
+        </ng-template>
+      </div>
+      <div class="topic-box">
+        <h2 class="caption">近期参与的话题</h2>
+        <ul class="list-box" *ngIf="replies.length; else elseTemplate">
+          <li class="item-box" *ngFor="let item of replies; index as index" (click)="$router.navigate(['/topic', item.id])">
+            <div class="avatar-box">
+              <img class="avatar" [src]="item.author.avatar_url" alt="头像">
+            </div>
+            <div class="desc-box">
+              <h3 class="title">{{item.title}}</h3>
+              <div class="time">{{item.author.loginname + '发表于' + handleFormatTime(item.last_reply_at)}}</div>
+            </div>
+          </li>
+        </ul>
+        <ng-template #elseTemplate>
+          <div class="nothing-box">这个家伙很懒，什么也没留下</div>
+        </ng-template>
+      </div>
+    </div>
+  </app-scroll>
+  <app-loading *ngIf="isLoading"></app-loading>
+</div>

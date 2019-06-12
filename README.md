@@ -1,56 +1,42 @@
 ## CNode移动版
 
-``` bash
-An angular project
+> 亮点
 
-本实例是基于angular 5.0制作的CNode移动版，数据均来自CNode官方提供的API。
+``` bash
+1、涵盖angular及其全家桶常用知识点
+
+2、解决苹果手机橡皮筋效果和微信下拉露底效果
 ```
 
 > 效果
 
-![Image text](https://raw.githubusercontent.com/chilliness/ngx-cnode/master/src/assets/demo.gif)
+![最终效果](/demo/demo.gif)
 
 > 注意事项
 
 ``` bash
-1、本实例是用angular-cli构建
+1、CSS代码使用了Scss编写
 
-2、CSS代码使用了Sass编写
+2、页面滚动使用better-scroll插件
 
-3、时间格式化使用moment插件
+3、本地存储使用good-storage插件
 
-4、页面滚动使用better-scroll插件
-
-5、本地数据存储使用sessionStorage
+4、时间格式化使用moment插件
 ```
 
 > 功能实现
 
 ``` bash
-01、主题首页展示（包含上拉加载，下拉刷新）
+01、首页展示（包含上拉加载，下拉刷新，浏览状态保留）
 
-02、主题详情页展示
+02、详情页展示
 
 03、用户详情页展示
 
-04、用户登录功能
+04、登录、退出功能
 
-05、评论点赞功能（需登录）
-
-06、主题回复功能（需登录）
-
-07、新建主题功能（需登录）
-
-08、主题收藏功能（需登录）
-
-09、消息功能展示（需登录）
-
-10、已读标记功能（需登录）
+05、用户收藏页展示（需登录）
 ```
-
-> 最后一句
-
-本实例用到了angular + router + http等。
 
 ## Development server
 
@@ -62,16 +48,4 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
