@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Inject, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-scroll',
@@ -19,8 +19,8 @@ export class ScrollComponent implements OnInit, AfterViewInit {
   @Output() refresh = new EventEmitter();
   @Output() loaded = new EventEmitter();
 
-  @ViewChild('scrollBox', { static: false }) scrollBoxRef: ElementRef;
-  @ViewChild('refresh', { static: false }) refreshRef: ElementRef;
+  @ViewChild('scrollBox', { static: false }) scrollBoxRef: any;
+  @ViewChild('refresh', { static: false }) refreshRef: any;
 
   [x: string]: any;
   refreshConfig = {
@@ -113,5 +113,9 @@ export class ScrollComponent implements OnInit, AfterViewInit {
 
   handleRefresh() {
     this.scroll && this.scroll.refresh();
+  }
+
+  handleBy(index) {
+    return index;
   }
 }

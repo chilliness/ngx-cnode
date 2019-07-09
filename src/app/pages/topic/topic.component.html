@@ -27,7 +27,7 @@
     <div class="reply-box" *ngIf="article.replies">
       <h3 class="title" #message>{{'共有' + article.replies.length +'条留言'}}</h3>
       <ul class="list-box" *ngIf="article.replies.length; else elseTemplate">
-        <li class="item-box" *ngFor="let item of article.replies; index as index">
+        <li class="item-box" *ngFor="let item of article.replies; index as index; trackBy: handleBy">
           <div class="user-box" (click)="$router.navigate(['/user', item.author.loginname])">
             <div class="avatar-box">
               <img class="avatar" [src]="item.author.avatar_url" alt="头像">

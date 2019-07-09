@@ -164,4 +164,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.share$.handleSetToast({ msg: this.$api.msg });
     }
   }
+
+  handleBy(index) {
+    return index;
+  }
 }

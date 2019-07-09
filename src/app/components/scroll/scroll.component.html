@@ -3,7 +3,7 @@
     <ng-content></ng-content>
     <div class="load-box" *ngIf="pullUpLoad; else elseTemplate">
       <div class="anim-box" *ngIf="loadConfig.flag">
-        <i class="item" *ngFor="let item of [1, 2, 3, 4, 5, 6]; index as index"></i>
+        <i class="item" *ngFor="let item of [1, 2, 3, 4, 5, 6]; index as index; trackBy: handleBy"></i>
       </div>
       <ng-template #elseTemplate>
         <div class="text-box">
@@ -17,7 +17,7 @@
   <div class="refresh-box" *ngIf="pullDownRefresh" #refresh>
     <div class="anim-box" *ngIf="refreshConfig.flag; else elseTemplate">
       <div class="item-box">
-        <i class="item" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9]; index as index"></i>
+        <i class="item" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9]; index as index; trackBy: handleBy"></i>
       </div>
     </div>
     <ng-template #elseTemplate>

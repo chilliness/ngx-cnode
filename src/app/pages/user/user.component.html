@@ -13,7 +13,7 @@
       <div class="topic-box">
         <h2 class="caption">近期创建的话题</h2>
         <ul class="list-box" *ngIf="topics.length; else elseTemplate">
-          <li class="item-box" *ngFor="let item of topics; index as index" (click)="$router.navigate(['/topic', item.id])">
+          <li class="item-box" *ngFor="let item of topics; index as index; trackBy: handleBy" (click)="$router.navigate(['/topic', item.id])">
             <div class="avatar-box">
               <img class="avatar" [src]="item.author.avatar_url" alt="头像">
             </div>
@@ -30,7 +30,7 @@
       <div class="topic-box">
         <h2 class="caption">近期参与的话题</h2>
         <ul class="list-box" *ngIf="replies.length; else elseTemplate">
-          <li class="item-box" *ngFor="let item of replies; index as index" (click)="$router.navigate(['/topic', item.id])">
+          <li class="item-box" *ngFor="let item of replies; index as index; trackBy: handleBy" (click)="$router.navigate(['/topic', item.id])">
             <div class="avatar-box">
               <img class="avatar" [src]="item.author.avatar_url" alt="头像">
             </div>

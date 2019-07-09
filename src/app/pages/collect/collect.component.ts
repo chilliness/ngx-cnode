@@ -72,4 +72,8 @@ export class CollectComponent implements OnInit, AfterViewInit, OnDestroy {
       this.share$.handleSetToast({ msg: this.$api.msg });
     }
   }
+
+  handleBy(index) {
+    return index;
+  }
 }

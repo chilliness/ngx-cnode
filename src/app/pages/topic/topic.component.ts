@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./topic.component.scss']
 })
 export class TopicComponent implements OnInit, AfterViewInit {
-  @ViewChild('message', { static: false }) messageRef: ElementRef;
+  @ViewChild('message', { static: false }) messageRef: any;
 
   [x: string]: any;
   title = '详情';
@@ -60,5 +60,9 @@ export class TopicComponent implements OnInit, AfterViewInit {
       this.isAjax = false;
       this.share$.handleSetToast({ msg: this.$api.msg });
     }
+  }
+
+  handleBy(index) {
+    return index;
   }
 }
