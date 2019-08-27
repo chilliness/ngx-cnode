@@ -1,11 +1,11 @@
-import { Component, OnInit, AfterViewInit, Inject, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, Inject, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-scroll',
   templateUrl: './scroll.component.html',
   styleUrls: ['./scroll.component.scss']
 })
-export class ScrollComponent implements OnInit, AfterViewInit {
+export class ScrollComponent implements AfterViewInit {
   @Input() data = [];
   @Input() click = true;
   @Input() probeType = 3;
@@ -16,7 +16,7 @@ export class ScrollComponent implements OnInit, AfterViewInit {
   @Input() isHome = false;
 
   @Output() scrolled = new EventEmitter();
-  @Output() refresh = new EventEmitter();
+  @Output() refreshed = new EventEmitter();
   @Output() loaded = new EventEmitter();
 
   @ViewChild('scrollBox', { static: false }) scrollBoxRef: any;
@@ -36,15 +36,13 @@ export class ScrollComponent implements OnInit, AfterViewInit {
     Object.assign(this, $shaw);
   }
 
-  ngOnInit() { }
-
   ngAfterViewInit() {
     this.handleInitScroll();
   }
 
   handleInitScroll() {
     if (!this.scroll) {
-      this.scroll = new this.$BScroll(this.scrollBoxRef.nativeElement, {
+      this['scroll'] = new this.$BScroll(this.scrollBoxRef.nativeElement, {
         click: this.click,
         probeType: this.probeType,
         observeDOM: this.observeDOM,
@@ -62,17 +60,14 @@ export class ScrollComponent implements OnInit, AfterViewInit {
             this.refreshConfig.text = '下拉刷新';
           }
 
-          this.refreshRef.nativeElement.style.top = `${Math.min(
-            pos.y - height,
-            height
-          )}px`;
+          this.refreshRef.nativeElement.style.top = `${Math.min(pos.y - height, height)}px`;
         }
       });
 
       if (this.pullDownRefresh) {
         this.scroll.on('pullingDown', () => {
           this.refreshConfig.flag = true;
-          this.refresh.emit();
+          this.refreshed.emit();
         });
       }
 
@@ -90,8 +85,7 @@ export class ScrollComponent implements OnInit, AfterViewInit {
   handleFinshPullDown(text = '刷新完毕') {
     if (this.scroll) {
       this.refreshConfig = { flag: false, text };
-      this.timerPullDown = setTimeout(() => {
-        clearTimeout(this.timerPullDown);
+      setTimeout(() => {
         this.scroll.finishPullDown();
       }, this.delay);
     }

@@ -1,38 +1,30 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnDestroy, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-confirm',
   templateUrl: './confirm.component.html',
   styleUrls: ['./confirm.component.scss']
 })
-export class ConfirmComponent implements OnInit, OnDestroy {
+export class ConfirmComponent implements OnDestroy {
   [x: string]: any;
-  title = '';
-  cancelText = '';
-  confirmText = '';
-  msg = '';
-  cancel = () => { };
-  confirm = () => { };
 
-  constructor(@Inject('share') private share$) { }
-
-  ngOnInit() {
-    this.seller$confirm = this.share$.confirm.subscribe(({ title, cancelText, confirmText, msg, cancel, confirm }) => {
-      this.title = title;
-      this.cancelText = cancelText;
-      this.confirmText = confirmText;
-      this.msg = msg;
-      this.cancel = cancel;
-      this.confirm = confirm;
+  constructor(@Inject('share') private share$) {
+    this['confirm$'] = this.share$.confirm.subscribe(({ title = '提示', msg = '', cancelText = '取消', confirmText = '确定', cancel = () => {}, confirm = () => {} }) => {
+      this['title'] = title;
+      this['msg'] = msg;
+      this['cancel'] = cancel;
+      this['confirm'] = confirm;
+      this['cancelText'] = cancelText;
+      this['confirmText'] = confirmText;
     });
   }
 
   ngOnDestroy() {
-    this.seller$confirm.unsubscribe();
+    this.confirm$.unsubscribe();
   }
 
   handleClose(type = 'cancel') {
-    this.msg = '';
+    this['msg'] = '';
     this[type]();
   }
 }

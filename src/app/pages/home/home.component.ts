@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Inject, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, Inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HomeComponent implements AfterViewInit, OnDestroy {
   @ViewChild('scroll', { static: false }) scrollRef: any;
 
   [x: string]: any;
@@ -17,13 +17,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     size: 20,
     active: { tab: 'all', index: 0 }
   };
-  menus = [
-    { text: '全部', alias: 'all' },
-    { text: '精华', alias: 'good' },
-    { text: '分享', alias: 'share' },
-    { text: '问答', alias: 'ask' },
-    { text: '招聘', alias: 'job' }
-  ];
+  menus = [{ text: '全部', alias: 'all' }, { text: '精华', alias: 'good' }, { text: '分享', alias: 'share' }, { text: '问答', alias: 'ask' }, { text: '招聘', alias: 'job' }];
   pullDownRefresh = {
     threshold: 60,
     stop: 60,
@@ -46,32 +40,32 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     Object.assign(this, $shaw);
 
     // 此处select的state来自app.module中定义，subscribe的user来自app.store中定义
-    this.$store$state = this.$store.select(({ state }) => state).subscribe(({ user }) => {
-      !user.avatar_url && (user.avatar_url = this.avatar);
-      this.user = user;
-    });
-  }
-
-  ngOnInit() { }
-
-  ngAfterViewInit() {
-    this.handleFetchData();
-    this.share$data = this.share$.data.subscribe(() => {
-      clearTimeout(this.timerRefresh);
-      this.timerRefresh = setTimeout(() => {
-        clearTimeout(this.timerRefresh);
+    this['state$'] = this.$store
+      .select(({ state }) => state)
+      .subscribe(({ user }) => {
+        !user.avatar_url && (user.avatar_url = this.avatar);
+        this.user = user;
+      });
+    this['data$'] = this.share$.data.subscribe(() => {
+      setTimeout(() => {
         this.scrollRef.handleRefresh();
       }, 310);
     });
   }
 
+  ngAfterViewInit() {
+    this.handleFetchData();
+  }
+
   ngOnDestroy() {
-    this.$store$state.unsubscribe();
-    this.share$data.unsubscribe();
+    this.state$.unsubscribe();
+    this.data$.unsubscribe();
   }
 
   handleFormatTime(time) {
-    return this.$moment(time, 'YYYYMMDD').fromNow().replace(/\s/g, '');
+    return this.$moment(time, 'YYYYMMDD')
+      .fromNow()
+      .replace(/\s/g, '');
   }
 
   handleChangeTab(tab, index) {
@@ -115,9 +109,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     try {
       this.isAjax = true;
       const res = await this.$http({
-        url: `${this.$api.topicList}?page=${this.form.page}&limit=${
-          this.form.size
-          }&tab=${this.form.active.tab}`
+        url: `${this.$api.topicList}?page=${this.form.page}&limit=${this.form.size}&tab=${this.form.active.tab}`
       });
       this.isAjax = false;
 

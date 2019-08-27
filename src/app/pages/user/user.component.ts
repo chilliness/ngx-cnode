@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Inject, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, Inject, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit, AfterViewInit, OnDestroy {
+export class UserComponent implements AfterViewInit, OnDestroy {
   @ViewChild('scroll', { static: false }) scrollRef: any;
 
   [x: string]: any;
@@ -18,28 +18,25 @@ export class UserComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(@Inject('shaw') $shaw, @Inject('share') private share$, private $router: Router, private $route: ActivatedRoute) {
     Object.assign(this, $shaw);
-  }
-
-  ngOnInit() {
-    this.handleFetchData();
-  }
-
-  ngAfterViewInit() {
-    this.share$user = this.share$.user.subscribe(() => {
-      clearTimeout(this.timerRefresh);
-      this.timerRefresh = setTimeout(() => {
-        clearTimeout(this.timerRefresh);
+    this['user$'] = this.share$.user.subscribe(() => {
+      setTimeout(() => {
         this.scrollRef.handleRefresh();
       }, 310);
     });
   }
 
+  ngAfterViewInit() {
+    this.handleFetchData();
+  }
+
   ngOnDestroy() {
-    this.share$user.unsubscribe();
+    this.user$.unsubscribe();
   }
 
   handleFormatTime(time) {
-    return this.$moment(time, 'YYYYMMDD').fromNow().replace(/\s/g, '');
+    return this.$moment(time, 'YYYYMMDD')
+      .fromNow()
+      .replace(/\s/g, '');
   }
 
   async handleFetchData() {

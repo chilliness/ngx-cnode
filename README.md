@@ -1,5 +1,11 @@
 ## CNode移动版
 
+> 版本
+
+|链接|链接|
+|:------:|:------:|
+|[vue版](https://github.com/chilliness/vue-cnode)|[angular版](https://github.com/chilliness/ngx-cnode)|
+
 > 亮点
 
 ``` bash
@@ -38,14 +44,17 @@
 05、用户收藏页展示（需登录）
 ```
 
-## Development server
+## Project setup
+```
+npm install
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Compiles and hot-reloads for development
+```
+npm run start
+```
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Compiles and minifies for production
+```
+npm run build
+```

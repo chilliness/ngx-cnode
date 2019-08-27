@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Inject, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, Inject, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './topic.component.html',
   styleUrls: ['./topic.component.scss']
 })
-export class TopicComponent implements OnInit, AfterViewInit {
+export class TopicComponent implements AfterViewInit {
   @ViewChild('message', { static: false }) messageRef: any;
 
   [x: string]: any;
@@ -21,14 +21,14 @@ export class TopicComponent implements OnInit, AfterViewInit {
     Object.assign(this, $shaw);
   }
 
-  ngOnInit() { }
-
   ngAfterViewInit() {
     this.handleFetchData();
   }
 
   handleFormatTime(time) {
-    return this.$moment(time, 'YYYYMMDD').fromNow().replace(/\s/g, '');
+    return this.$moment(time, 'YYYYMMDD')
+      .fromNow()
+      .replace(/\s/g, '');
   }
 
   handleUpdateTitle() {

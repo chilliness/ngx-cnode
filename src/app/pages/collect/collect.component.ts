@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Inject, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, Inject, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './collect.component.html',
   styleUrls: ['./collect.component.scss']
 })
-export class CollectComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CollectComponent implements AfterViewInit, OnDestroy {
   @ViewChild('scroll', { static: false }) scrollRef: any;
 
   [x: string]: any;
@@ -20,32 +20,31 @@ export class CollectComponent implements OnInit, AfterViewInit, OnDestroy {
     Object.assign(this, $shaw);
 
     // 此处select的state来自app.module中定义，subscribe的user来自app.store中定义
-    this.$store$state = this.$store.select(({ state }) => state).subscribe(({ user }) => {
-      this.user = user;
-    });
-  }
-
-  ngOnInit() {
-    this.handleFetchData();
-  }
-
-  ngAfterViewInit() {
-    this.share$collect = this.share$.collect.subscribe(() => {
-      clearTimeout(this.timerRefresh);
-      this.timerRefresh = setTimeout(() => {
-        clearTimeout(this.timerRefresh);
+    this['state$'] = this.$store
+      .select(({ state }) => state)
+      .subscribe(({ user }) => {
+        this.user = user;
+      });
+    this['collect$'] = this.share$.collect.subscribe(() => {
+      setTimeout(() => {
         this.scrollRef.handleRefresh();
       }, 310);
     });
   }
 
+  ngAfterViewInit() {
+    this.handleFetchData();
+  }
+
   ngOnDestroy() {
-    this.$store$state.unsubscribe();
-    this.share$collect.unsubscribe();
+    this.state$.unsubscribe();
+    this.collect$.unsubscribe();
   }
 
   handleFormatTime(time) {
-    return this.$moment(time, 'YYYYMMDD').fromNow().replace(/\s/g, '');
+    return this.$moment(time, 'YYYYMMDD')
+      .fromNow()
+      .replace(/\s/g, '');
   }
 
   async handleFetchData() {

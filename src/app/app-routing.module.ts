@@ -4,7 +4,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { TopicComponent } from './pages/topic/topic.component';
 import { UserComponent } from './pages/user/user.component';
 import { CollectComponent } from './pages/collect/collect.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
 import session from './utils/storage';
 
 // 路由拦截
@@ -22,16 +21,15 @@ export class RouteAuth implements CanActivate {
 }
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, data: { keep: true } },
   { path: 'topic/:id', component: TopicComponent },
   { path: 'user/:name', component: UserComponent },
   { path: 'collect/:name', component: CollectComponent, canActivate: [RouteAuth] },
-  { path: '**', component: NotFoundComponent }
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

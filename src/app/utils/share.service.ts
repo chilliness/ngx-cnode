@@ -1,25 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-const toastConfig = { msg: '', callback() { } };
-const confirmConfig = {
-  title: '提示',
-  cancelText: '取消',
-  confirmText: '确定',
-  msg: '',
-  cancel() { },
-  confirm() { }
-};
-
 @Injectable()
 export class ShareService {
   data = new BehaviorSubject([]);
   user = new BehaviorSubject({});
   collect = new BehaviorSubject({});
-  toast = new BehaviorSubject(toastConfig);
-  confirm = new BehaviorSubject(confirmConfig);
+  toast = new BehaviorSubject({});
+  confirm = new BehaviorSubject({});
 
-  constructor() { }
+  constructor() {}
 
   handleSetData(val) {
     this.data.next(val);
@@ -34,10 +24,10 @@ export class ShareService {
   }
 
   handleSetToast(val) {
-    this.toast.next({ ...toastConfig, ...val });
+    this.toast.next(val);
   }
 
   handleSetConfirm(val) {
-    this.confirm.next({ ...confirmConfig, ...val });
+    this.confirm.next(val);
   }
 }
