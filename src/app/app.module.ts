@@ -25,7 +25,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { TopicComponent } from './pages/topic/topic.component';
 import { UserComponent } from './pages/user/user.component';
 import { CollectComponent } from './pages/collect/collect.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 import { HeaderComponent } from './components/header/header.component';
 import { LoadingComponent } from './components/loading/loading.component';
@@ -51,7 +50,6 @@ import { AppRoutingCache } from './app-routing.cache';
     TopicComponent,
     UserComponent,
     CollectComponent,
-    NotFoundComponent,
     HeaderComponent,
     LoadingComponent,
     ToastComponent,

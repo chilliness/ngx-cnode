@@ -1,10 +1,10 @@
 <div class="home-wrap">
-  <app-header [isHome]="true" (toggle)="handleToggleLoginBar(true)">NodeJS论坛</app-header>
+  <app-header [isHome]="true" (emitToggle)="handleToggleLoginBar(true)">NodeJS论坛</app-header>
   <ul class="nav-list">
     <li class="item-box" *ngFor="let item of menus; index as index; trackBy: handleBy" (click)="handleChangeTab(item.alias, index)">{{item.text}}</li>
     <li class="line" [ngStyle]="{left: form.active.index * 20 + '%'}"></li>
   </ul>
-  <app-scroll [isHome]="true" [pullDownRefresh]="pullDownRefresh" [pullUpLoad]="pullUpLoad" [data]="form.list" (refreshed)="handleFetchData(true)" (loaded)="handleFetchData()" #scroll>
+  <app-scroll [isHome]="true" [pullDownRefresh]="pullDownRefresh" [pullUpLoad]="pullUpLoad" [data]="form.list" (emitRefresh)="handleFetchData(true)" (emitLoad)="handleFetchData()" #scrollRef>
     <ul class="list-box">
       <li class="item-box" *ngFor="let item of form.list; index as index; trackBy: handleBy" (click)="$router.navigate(['/topic', item.id])">
         <div class="avatar-box">

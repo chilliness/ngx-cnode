@@ -1,4 +1,3 @@
-
 import session from './utils/storage';
 
 // 备注，switch返回的值要和state初始值对应
@@ -7,12 +6,14 @@ export function appReducer(
     isLogin: session.get('isLogin', 0),
     user: session.get('user', {})
   },
-  action: { type: string, payload?: any }
+  action: { type: string; payload?: any }
 ) {
   switch (action.type) {
     case 'login':
       const isLogin = session.set('isLogin', action.payload);
-      !action.payload && session.clear();
+      if (!action.payload) {
+        session.clear();
+      }
       return { ...state, isLogin };
 
     case 'user':

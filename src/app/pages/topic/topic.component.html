@@ -1,6 +1,6 @@
 <div class="topic-wrap">
   <app-header>{{title}}</app-header>
-  <app-scroll [observeDOM]="true" [data]="[article]" (scrolled)="handleUpdateTitle()">
+  <app-scroll [observeDOM]="true" [data]="[article]" (emitScroll)="handleUpdateTitle()">
     <div class="content-box">
       <h2 class="title">{{article.title}}</h2>
       <div class="user-bar" *ngIf="article.author">
@@ -25,7 +25,7 @@
       <div [innerHTML]="article.content"></div>
     </div>
     <div class="reply-box" *ngIf="article.replies">
-      <h3 class="title" #message>{{'共有' + article.replies.length +'条留言'}}</h3>
+      <h3 class="title" #messageRef>{{'共有' + article.replies.length +'条留言'}}</h3>
       <ul class="list-box" *ngIf="article.replies.length; else elseTemplate">
         <li class="item-box" *ngFor="let item of article.replies; index as index; trackBy: handleBy">
           <div class="user-box" (click)="$router.navigate(['/user', item.author.loginname])">

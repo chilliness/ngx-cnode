@@ -7,10 +7,10 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('scroll', { static: false }) scrollRef: any;
+  @ViewChild('scrollRef', { static: false }) scrollRef: any;
 
   [x: string]: any;
-  user = {};
+  user: any = {};
   topics = [];
   replies = [];
   isAjax = false;

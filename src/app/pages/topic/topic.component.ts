@@ -7,11 +7,11 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./topic.component.scss']
 })
 export class TopicComponent implements AfterViewInit {
-  @ViewChild('message', { static: false }) messageRef: any;
+  @ViewChild('messageRef', { static: false }) messageRef: any;
 
   [x: string]: any;
   title = '详情';
-  article = {};
+  article: any = {};
   isAjax = false;
   isLoading = true;
   top = require('./img/top.gif');

@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('scroll', { static: false }) scrollRef: any;
+  @ViewChild('scrollRef', { static: false }) scrollRef: any;
 
   [x: string]: any;
   form = {
@@ -43,7 +43,9 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     this['state$'] = this.$store
       .select(({ state }) => state)
       .subscribe(({ user }) => {
-        !user.avatar_url && (user.avatar_url = this.avatar);
+        if (!user.avatar_url) {
+          user.avatar_url = this.avatar;
+        }
         this.user = user;
       });
     this['data$'] = this.share$.data.subscribe(() => {
@@ -126,12 +128,16 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         this.share$.handleSetData(this.form.list);
       } else {
         this.share$.handleSetToast({ msg: res.error_msg });
-        isRefresh && this.scrollRef.handleFinshPullDown(this.$api.msg);
+        if (isRefresh) {
+          this.scrollRef.handleFinshPullDown(this.$api.msg);
+        }
       }
     } catch (e) {
       this.isAjax = false;
       this.share$.handleSetToast({ msg: this.$api.msg });
-      isRefresh && this.scrollRef.handleFinshPullDown(this.$api.msg);
+      if (isRefresh) {
+        this.scrollRef.handleFinshPullDown(this.$api.msg);
+      }
     }
   }
 

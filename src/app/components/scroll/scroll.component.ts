@@ -15,12 +15,12 @@ export class ScrollComponent implements AfterViewInit {
   @Input() delay = 300;
   @Input() isHome = false;
 
-  @Output() scrolled = new EventEmitter();
-  @Output() refreshed = new EventEmitter();
-  @Output() loaded = new EventEmitter();
+  @Output() emitScroll = new EventEmitter();
+  @Output() emitRefresh = new EventEmitter();
+  @Output() emitLoad = new EventEmitter();
 
-  @ViewChild('scrollBox', { static: false }) scrollBoxRef: any;
-  @ViewChild('refresh', { static: false }) refreshRef: any;
+  @ViewChild('scrollBoxRef', { static: false }) scrollBoxRef: any;
+  @ViewChild('refreshRef', { static: false }) refreshRef: any;
 
   [x: string]: any;
   refreshConfig = {
@@ -51,7 +51,7 @@ export class ScrollComponent implements AfterViewInit {
       });
 
       this.scroll.on('scroll', pos => {
-        this.scrolled.emit(pos);
+        this.emitScroll.emit(pos);
 
         if (this.pullDownRefresh) {
           const height = this.refreshRef.nativeElement.clientHeight;
@@ -67,14 +67,14 @@ export class ScrollComponent implements AfterViewInit {
       if (this.pullDownRefresh) {
         this.scroll.on('pullingDown', () => {
           this.refreshConfig.flag = true;
-          this.refreshed.emit();
+          this.emitRefresh.emit();
         });
       }
 
       if (this.pullUpLoad) {
         this.scroll.on('pullingUp', () => {
           this.loadConfig.flag = true;
-          this.loaded.emit();
+          this.emitLoad.emit();
         });
       }
     } else {
@@ -102,11 +102,15 @@ export class ScrollComponent implements AfterViewInit {
   }
 
   handleScrollTo() {
-    this.scroll && this.scroll.scrollTo(0, 0, 100);
+    if (this.scroll) {
+      this.scroll.scrollTo(0, 0, 100);
+    }
   }
 
   handleRefresh() {
-    this.scroll && this.scroll.refresh();
+    if (this.scroll) {
+      this.scroll.refresh();
+    }
   }
 
   handleBy(index) {

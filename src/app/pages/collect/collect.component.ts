@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./collect.component.scss']
 })
 export class CollectComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('scroll', { static: false }) scrollRef: any;
+  @ViewChild('scrollRef', { static: false }) scrollRef: any;
 
   [x: string]: any;
   list = [];

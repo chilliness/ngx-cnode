@@ -8,11 +8,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class HeaderComponent {
   @Input() isHome = false;
 
-  @Output() toggle = new EventEmitter();
+  @Output() emitToggle = new EventEmitter();
 
   handleClick() {
     if (this.isHome) {
-      return this.toggle.emit();
+      return this.emitToggle.emit();
     }
     history.back();
   }

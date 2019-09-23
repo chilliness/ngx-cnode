@@ -9,8 +9,6 @@ export class ShareService {
   toast = new BehaviorSubject({});
   confirm = new BehaviorSubject({});
 
-  constructor() {}
-
   handleSetData(val) {
     this.data.next(val);
   }
